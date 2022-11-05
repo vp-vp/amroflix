@@ -40,7 +40,7 @@ onMounted(() => {
             <v-card-subtitle>
                 Genre: {{ show.genres.join(', ') }}
             </v-card-subtitle>
-            <v-card-text v-html="show.summary" class="flex-1" />
+            <v-card-text v-html="show.summary" class="flex-grow-1" />
             <v-card-actions>
                 <v-btn color="orange" append-icon="mdi-open-in-new" :href="show.officialSite" target="_blank">
                     More
@@ -51,14 +51,6 @@ onMounted(() => {
 </template>
 
 <style>
-.flex-1 {
-    flex: 1;
-}
-
-.flex-2 {
-    flex: 2;
-}
-
 .show-card {
     display: grid;
     grid-template-columns: 400px 1fr;
