@@ -9,8 +9,12 @@ defineProps<{
 
 <template>
   <div class="show-container">
-    <v-card width="125" @click="router.push({ name: 'show', params: { id: show.id } })" v-for="show in filteredShows"
-      :key="show.id">
+    <v-card
+      width="125"
+      @click="router.push({ name: 'show', params: { id: show.id } })"
+      v-for="show in filteredShows"
+      :key="show.id"
+    >
       <v-card-subtitle>{{ show.name }}</v-card-subtitle>
       <v-img :src="show.image.medium">
         <template v-slot:placeholder>

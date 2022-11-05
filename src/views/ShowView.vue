@@ -33,16 +33,8 @@ onMounted(() => {
 <template>
   <abn-loading :show="isLoading" />
 
-  <v-card
-    class="tv-show-card"
-    max-width="100%"
-    v-if="show.id !== undefined"
-  >
-    <v-img
-      class="tv-show-image"
-      :src="show.image.original"
-      cover
-    >
+  <v-card class="tv-show-card" max-width="100%" v-if="show.id !== undefined">
+    <v-img class="tv-show-image" :src="show.image.original" cover>
       <template v-slot:placeholder>
         <div class="d-flex align-center justify-center fill-height">
           <span>{{ show.name }}</span>
@@ -112,7 +104,7 @@ onMounted(() => {
 
 /* Small devices (phones, 960px and down) */
 @media (max-width: 960px) {
-  .show-card {
+  .tv-show-card {
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: 300px auto;
