@@ -16,6 +16,7 @@ function getShowDetails() {
 
     isLoading.value = true
 
+    // TODO: Move into services/
     fetch(`https://api.tvmaze.com/shows/${showId}`)
         .then(response => response.json())
         .then(data => {

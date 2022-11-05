@@ -1,7 +1,16 @@
+<script setup lang="ts">
+import router from '@/router';
+import type { RouteLocationRaw } from 'vue-router';
+
+function navigate(path: RouteLocationRaw) {
+  router.push(path)
+}
+</script>
+
 <template>
     <!-- TODO: Collapse into app drawer when width is less than x -->
     <v-app-bar app>
-      <v-app-bar-title> AMROFLIX </v-app-bar-title>
+      <v-app-bar-title @click="navigate('/')" class="nav-title"> AMROFLIX </v-app-bar-title>
 
       <v-spacer />
 
@@ -39,3 +48,9 @@
 
     </v-app-bar>
 </template>
+
+<style>
+.nav-title {
+  cursor: pointer;
+}
+</style>

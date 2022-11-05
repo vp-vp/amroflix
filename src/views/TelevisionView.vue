@@ -5,6 +5,9 @@ import { useRouter } from 'vue-router'
 import { computed } from '@vue/reactivity';
 
 import AbnLoading from '@/components/AbnLoading.vue'
+import AbnCarousel from '@/components/AbnCarousel.vue';
+
+const NOT_AVAILABLE = "N/A"
 
 const router = useRouter()
 
@@ -13,6 +16,39 @@ const searchQuery = ref('')
 const showsList = ref([] as Array<IShow>)
 
 const filteredShows = computed(() => showsList.value.filter(show => show.name.toLowerCase().indexOf(searchQuery.value) > -1))
+const groupedShows = computed(() => {
+    const groupedShowList: Record<string, Array<IShow>> = {}
+
+    filteredShows.value.forEach(show => {
+        // TODO: The grouping can be improved to be more robust
+        const genres = show.genres.length ? show.genres : [NOT_AVAILABLE]
+
+        genres.forEach(genre => {
+            if (groupedShowList[genre] === undefined) {
+                groupedShowList[genre] = []
+            }
+            groupedShowList[genre].push(show)
+        })
+    })
+
+    return groupedShowList
+})
+const sortedGroupedShows = computed(() => {
+    const genres = Object.keys(groupedShows.value)
+    const sortedGroupedShowList: Record<string, Array<IShow>> = {}
+
+    genres.forEach(genre => {
+        const showsList = groupedShows.value[genre]
+        showsList.sort(sortByRatingDesc)
+        sortedGroupedShowList[genre] = showsList
+    })
+
+    return sortedGroupedShowList
+})
+
+function sortByRatingDesc (show1: IShow, show2: IShow)  {
+    return -1 * (show1.rating.average - show2.rating.average)
+}
 
 function getTvShows() {
     isLoading.value = true
@@ -34,36 +70,25 @@ onMounted(() => {
 <template>
     <abn-loading :show="isLoading" />
 
-    <div class="d-flex">
-        <h1 class="flex-grow-1"> TV Shows </h1>
+    <div class="d-flex align-center">
+        <div class="flex-grow-1 text-h4"> TV Shows </div>
         <v-text-field placeholder="Search by show name" append-inner-icon="mdi-magnify" variant="underlined"
             v-model="searchQuery"></v-text-field>
     </div>
 
-    <div class="show-container">
-        <v-card class="mx-auto" width="125" @click="router.push({ name: 'show', params: { id: show.id } })"
-            v-for="show in filteredShows" :key="show.id">
-            <v-img class="align-end text-white" :src="show.image.medium" :alt="show.name">
-                <template v-slot:placeholder>
-                    <div class="d-flex align-center justify-center fill-height">
-                        <span class="dark-text">{{ show.name }}</span>
-                    </div>
-                </template>
-            </v-img>
-
-        </v-card>
+    <div v-for="genre in Object.keys(sortedGroupedShows)" :key="genre" class="television-shows">
+        <div class="text-h6 genre-title">{{genre}}</div>
+        <abn-carousel :filtered-shows="sortedGroupedShows[genre]" />
     </div>
 
 </template>
 
 <style>
-.show-container {
-    display: grid;
-    grid-gap: 16px;
-    grid-template-columns: repeat(auto-fit, minmax(125px, 1fr))
+.television-shows {
+    padding-top: 8px;
 }
-
-.dark-text {
-    color: var(--vt-c-black);
+.genre-title {
+    padding: 16px 0; 
 }
 </style>
+
