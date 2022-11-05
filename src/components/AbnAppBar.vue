@@ -1,52 +1,55 @@
 <script setup lang="ts">
-import router from '@/router';
-import type { RouteLocationRaw } from 'vue-router';
+import router from "@/router";
+import type { RouteLocationRaw } from "vue-router";
 
 function navigate(path: RouteLocationRaw) {
-  router.push(path)
+  router.push(path);
 }
 </script>
 
 <template>
-    <!-- TODO: Collapse into app drawer when width is less than x -->
-    <v-app-bar app>
-      <v-app-bar-title @click="navigate('/')" class="nav-title"> AMROFLIX </v-app-bar-title>
+  <!-- TODO: Collapse into app drawer when width is less than x -->
+  <v-app-bar app>
+    <v-app-bar-title @click="navigate('/')" class="nav-title">
+      AMROFLIX
+    </v-app-bar-title>
 
-      <v-spacer />
+    <v-spacer />
 
-      <v-btn prepend-icon="mdi-home" :variant="$route.name === 'home' ? 'outlined': 'text'" to="/home">
-        Home
-      </v-btn>
+    <v-btn
+      prepend-icon="mdi-home"
+      :variant="$route.name === 'home' ? 'outlined' : 'text'"
+      to="/home"
+    >
+      Home
+    </v-btn>
 
-      <v-btn prepend-icon="mdi-television-classic" :variant="$route.name === 'tv' ? 'outlined': 'text'" to="/tv">
-        TV
-      </v-btn>
+    <v-btn
+      prepend-icon="mdi-television-classic"
+      :variant="$route.name === 'tv' ? 'outlined' : 'text'"
+      to="/tv"
+    >
+      TV
+    </v-btn>
 
-      <!-- TODO: show tooltip when button is disabled  -->
-      <v-btn prepend-icon="mdi-movie" :variant="$route.name === 'movies' ? 'outlined': 'text'" to="/movies">
-        Movies 
-        <v-tooltip
-          activator="parent"
-          location="bottom"
-        >
-          Coming soon
-        </v-tooltip>
-      </v-btn>
+    <!-- TODO: show tooltip when button is disabled  -->
+    <v-btn
+      prepend-icon="mdi-movie"
+      :variant="$route.name === 'movies' ? 'outlined' : 'text'"
+      to="/movies"
+    >
+      Movies
+      <v-tooltip activator="parent" location="bottom"> Coming soon </v-tooltip>
+    </v-btn>
 
-      <v-spacer />
+    <v-spacer />
 
-      <!-- TODO: show tooltip when button is disabled  -->
-      <v-btn icon to="/settings">
-        <v-icon icon="mdi-account-circle" />
-        <v-tooltip
-          activator="parent"
-          location="bottom"
-        >
-          Coming soon
-        </v-tooltip>
-      </v-btn>
-
-    </v-app-bar>
+    <!-- TODO: show tooltip when button is disabled  -->
+    <v-btn icon to="/settings">
+      <v-icon icon="mdi-account-circle" />
+      <v-tooltip activator="parent" location="bottom"> Coming soon </v-tooltip>
+    </v-btn>
+  </v-app-bar>
 </template>
 
 <style>

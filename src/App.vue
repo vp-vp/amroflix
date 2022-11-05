@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
-import AbnAppBar from './components/AbnAppBar.vue';
+import { RouterView } from "vue-router";
+import AbnAppBar from "./components/AbnAppBar.vue";
 </script>
 
 <template>
@@ -9,14 +9,11 @@ import AbnAppBar from './components/AbnAppBar.vue';
 
     <!-- Sizes content based upon application components -->
     <v-main>
-
       <!-- Provides the application the proper gutter -->
       <v-container fluid>
-
         <router-view></router-view>
       </v-container>
     </v-main>
-
   </v-app>
 </template>
 

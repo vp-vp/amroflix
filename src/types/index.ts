@@ -1,1 +1,1 @@
-export * from './IShow'
+export * from "./IShow";
