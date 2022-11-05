@@ -9,17 +9,13 @@ defineProps<{
 
 <template>
   <div class="show-container">
-    <v-card
-      class="mx-auto"
-      width="125"
-      @click="router.push({ name: 'show', params: { id: show.id } })"
-      v-for="show in filteredShows"
-      :key="show.id"
-    >
-      <v-img class="align-end text-white" :src="show.image.medium">
+    <v-card width="125" @click="router.push({ name: 'show', params: { id: show.id } })" v-for="show in filteredShows"
+      :key="show.id">
+      <v-card-subtitle>{{ show.name }}</v-card-subtitle>
+      <v-img :src="show.image.medium">
         <template v-slot:placeholder>
           <div class="d-flex align-center justify-center fill-height">
-            <span class="dark-text">{{ show.name }}</span>
+            <span>{{ show.name }}</span>
           </div>
         </template>
       </v-img>
@@ -36,9 +32,5 @@ defineProps<{
   grid-template-columns: repeat(auto-fill, minmax(125px, 125px));
   grid-auto-flow: column;
   grid-auto-columns: minmax(125px, 1fr);
-}
-
-.dark-text {
-  color: var(--vt-c-black);
 }
 </style>

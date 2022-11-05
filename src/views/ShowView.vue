@@ -34,23 +34,23 @@ onMounted(() => {
   <abn-loading :show="isLoading" />
 
   <v-card
-    class="mx-auto show-card"
+    class="tv-show-card"
     max-width="100%"
     v-if="show.id !== undefined"
   >
     <v-img
-      class="align-end text-white show-image"
+      class="tv-show-image"
       :src="show.image.original"
       cover
     >
       <template v-slot:placeholder>
         <div class="d-flex align-center justify-center fill-height">
-          <span class="dark-text">{{ show.name }}</span>
+          <span>{{ show.name }}</span>
         </div>
       </template>
     </v-img>
 
-    <div class="show-details">
+    <div class="tv-show-details">
       <v-card-title>{{ show.name || NOT_AVAILABLE }}</v-card-title>
       <v-rating
         hover
@@ -84,34 +84,30 @@ onMounted(() => {
 </template>
 
 <style>
-.show-card {
+.tv-show-card {
   display: grid;
   grid-template-columns: 400px 1fr;
   grid-template-rows: auto;
   grid-template-areas: "image details";
 }
 
-.show-details {
+.tv-show-details {
   grid-area: details;
   display: flex;
   flex-direction: column;
 }
 
-.show-image {
+.tv-show-image {
   grid-area: image;
 }
 
-.show-cast {
+.tv-show-cast {
   height: 100px;
 }
 
-.show-similar-shows {
+.tv-show-similar-shows {
   padding-top: 32px;
   height: 100px;
-}
-
-.dark-text {
-  color: var(--vt-c-black);
 }
 
 /* Small devices (phones, 960px and down) */

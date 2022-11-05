@@ -73,19 +73,11 @@ onMounted(() => {
 
   <div class="d-flex align-center">
     <div class="flex-grow-1 text-h4">TV Shows</div>
-    <v-text-field
-      placeholder="Search by show name"
-      append-inner-icon="mdi-magnify"
-      variant="underlined"
-      v-model="searchQuery"
-    ></v-text-field>
+    <v-text-field placeholder="Search by show name" append-inner-icon="mdi-magnify" variant="underlined"
+      v-model="searchQuery" />
   </div>
 
-  <div
-    v-for="genre in Object.keys(sortedGroupedShows)"
-    :key="genre"
-    class="television-shows"
-  >
+  <div v-for="genre in Object.keys(sortedGroupedShows)" :key="genre" class="television-shows">
     <div class="text-h6 genre-title">{{ genre }}</div>
     <abn-carousel :filtered-shows="sortedGroupedShows[genre]" />
   </div>
@@ -95,6 +87,7 @@ onMounted(() => {
 .television-shows {
   padding-top: 8px;
 }
+
 .genre-title {
   padding: 16px 0;
 }
