@@ -5,16 +5,16 @@
 
       <v-spacer />
 
-      <v-btn prepend-icon="mdi-home" :variant="$route.name === 'home' ? 'outlined': 'plain'" to="/home">
+      <v-btn prepend-icon="mdi-home" :variant="$route.name === 'home' ? 'outlined': 'text'" to="/home">
         Home
       </v-btn>
 
-      <v-btn prepend-icon="mdi-television-classic" :variant="$route.name === 'tv' ? 'outlined': 'plain'" to="/tv">
+      <v-btn prepend-icon="mdi-television-classic" :variant="$route.name === 'tv' ? 'outlined': 'text'" to="/tv">
         TV
       </v-btn>
 
       <!-- TODO: show tooltip when button is disabled  -->
-      <v-btn prepend-icon="mdi-movie" :variant="$route.name === 'movies' ? 'outlined': 'plain'" to="/movies">
+      <v-btn prepend-icon="mdi-movie" :variant="$route.name === 'movies' ? 'outlined': 'text'" to="/movies">
         Movies 
         <v-tooltip
           activator="parent"

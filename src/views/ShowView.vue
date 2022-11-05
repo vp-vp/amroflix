@@ -5,6 +5,8 @@ import AbnLoading from '@/components/AbnLoading.vue';
 
 import type { IShow } from '@/types'
 
+const NOT_AVAILABLE = "N/A"
+
 const isLoading = ref(false)
 const show = ref({} as IShow)
 
@@ -29,20 +31,29 @@ onMounted(() => {
 
 <template>
     <abn-loading :show="isLoading" />
+
     <v-card class="mx-auto show-card" max-width="100%" v-if="show.id !== undefined">
-        <v-img class="align-end text-white show-image" :src="show.image.original" cover/>
+        <v-img class="align-end text-white show-image" :src="show.image.original" cover>
+            <template v-slot:placeholder>
+                <div class="d-flex align-center justify-center fill-height">
+                    <span class="dark-text">{{ show.name }}</span>
+                </div>
+            </template>
+        </v-img>
+
         <div class="show-details">
-            <v-card-title>{{ show.name }}</v-card-title>
+            <v-card-title>{{ show.name || NOT_AVAILABLE }}</v-card-title>
             <v-rating hover length="5" half-increments readonly v-model="show.rating.average"></v-rating>
             <v-card-subtitle>
-                Language: {{ show.language }}
+                Language: {{ show.language || NOT_AVAILABLE }}
             </v-card-subtitle>
             <v-card-subtitle>
-                Genre: {{ show.genres.join(', ') }}
+                Genre: {{ show.genres.length ? show.genres.join(', ') : NOT_AVAILABLE }}
             </v-card-subtitle>
-            <v-card-text v-html="show.summary" class="flex-grow-1" />
+            <v-card-text v-html="show.summary || NOT_AVAILABLE" class="flex-grow-1" />
             <v-card-actions>
-                <v-btn color="orange" append-icon="mdi-open-in-new" :href="show.officialSite" target="_blank">
+                <v-btn color="var(--vt-c-indigo)" :disabled="!show.officialSite" append-icon="mdi-open-in-new"
+                    :href="show.officialSite" target="_blank">
                     More
                 </v-btn>
             </v-card-actions>
@@ -77,16 +88,19 @@ onMounted(() => {
     height: 100px;
 }
 
-/* Extra small devices (phones, 600px and down) */
+.dark-text {
+    color: var(--vt-c-black);
+}
+
+/* Small devices (phones, 960px and down) */
 @media (max-width: 960px) {
     .show-card {
         display: grid;
         grid-template-columns: auto;
         grid-template-rows: 300px auto;
-        grid-template-areas: 
-        "image"
-        "details";
+        grid-template-areas:
+            "image"
+            "details";
     }
 }
-
 </style>

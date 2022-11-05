@@ -2,9 +2,9 @@
 import type { IShow } from '../types'
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { computed } from '@vue/reactivity';
 
 import AbnLoading from '@/components/AbnLoading.vue'
-import { computed } from '@vue/reactivity';
 
 const router = useRouter()
 
@@ -36,13 +36,21 @@ onMounted(() => {
 
     <div class="d-flex">
         <h1 class="flex-grow-1"> TV Shows </h1>
-        <v-text-field placeholder="Search by show name" append-inner-icon="mdi-magnify" variant="underlined" v-model="searchQuery"></v-text-field>
+        <v-text-field placeholder="Search by show name" append-inner-icon="mdi-magnify" variant="underlined"
+            v-model="searchQuery"></v-text-field>
     </div>
 
     <div class="show-container">
         <v-card class="mx-auto" width="125" @click="router.push({ name: 'show', params: { id: show.id } })"
             v-for="show in filteredShows" :key="show.id">
-            <v-img class="align-end text-white" :src="show.image.medium" />
+            <v-img class="align-end text-white" :src="show.image.medium" :alt="show.name">
+                <template v-slot:placeholder>
+                    <div class="d-flex align-center justify-center fill-height">
+                        <span class="dark-text">{{ show.name }}</span>
+                    </div>
+                </template>
+            </v-img>
+
         </v-card>
     </div>
 
@@ -53,5 +61,9 @@ onMounted(() => {
     display: grid;
     grid-gap: 16px;
     grid-template-columns: repeat(auto-fit, minmax(125px, 1fr))
+}
+
+.dark-text {
+    color: var(--vt-c-black);
 }
 </style>
