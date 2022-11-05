@@ -29,8 +29,9 @@ onMounted(() => {
 
 <template>
     <abn-loading :show="isLoading" />
-    <v-card class="mx-auto flex" max-width="100%" v-if="show.id !== undefined">
-        <div class="flex flex-2 show-details" >
+    <v-card class="mx-auto show-card" max-width="100%" v-if="show.id !== undefined">
+        <v-img class="align-end text-white show-image" :src="show.image.original" cover/>
+        <div class="show-details">
             <v-card-title>{{ show.name }}</v-card-title>
             <v-rating hover length="5" half-increments readonly v-model="show.rating.average"></v-rating>
             <v-card-subtitle>
@@ -39,36 +40,61 @@ onMounted(() => {
             <v-card-subtitle>
                 Genre: {{ show.genres.join(', ') }}
             </v-card-subtitle>
-            <v-card-text v-html="show.summary" class="flex-1"/>
-            <v-spacer />
+            <v-card-text v-html="show.summary" class="flex-1" />
             <v-card-actions>
                 <v-btn color="orange" append-icon="mdi-open-in-new" :href="show.officialSite" target="_blank">
                     More
                 </v-btn>
             </v-card-actions>
         </div>
-        <v-img class="align-end text-white flex-1" width="35%" :src="show.image.original" />
     </v-card>
 </template>
 
 <style>
-.flex {
-    display: flex;
-}
 .flex-1 {
     flex: 1;
 }
+
 .flex-2 {
     flex: 2;
 }
+
+.show-card {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: 'image details';
+}
+
 .show-details {
+    grid-area: details;
+    display: flex;
     flex-direction: column;
 }
+
+.show-image {
+    grid-area: image;
+}
+
 .show-cast {
     height: 100px;
 }
+
 .show-similar-shows {
     padding-top: 32px;
     height: 100px;
 }
+
+/* Extra small devices (phones, 600px and down) */
+@media (max-width: 960px) {
+    .show-card {
+        display: grid;
+        grid-template-columns: auto;
+        grid-template-rows: 300px auto;
+        grid-template-areas: 
+        "image"
+        "details";
+    }
+}
+
 </style>
