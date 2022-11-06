@@ -72,12 +72,14 @@ onMounted(() => {
   <abn-loading :show="isLoading" />
 
   <div class="d-flex align-center">
-    <div class="flex-grow-1 text-h4">TV Shows</div>
+    <div class="flex-grow-1 text-h4" alt="TV shows">TV Shows</div>
     <v-text-field
       placeholder="Search by show name"
       append-inner-icon="mdi-magnify"
       variant="underlined"
       v-model="searchQuery"
+      alt="Search by show name"
+      data-testid="tv-shows-search"
     />
   </div>
 
@@ -85,9 +87,19 @@ onMounted(() => {
     v-for="genre in Object.keys(sortedGroupedShows)"
     :key="genre"
     class="television-shows"
+    :data-testid="`tv-shows-${genre}`"
   >
-    <div class="text-h6 genre-title">{{ genre }}</div>
-    <abn-carousel :shows-list="sortedGroupedShows[genre]" />
+    <div
+      class="text-h6 genre-title"
+      :data-testid="`tv-shows-${genre}-title`"
+      :alt="genre"
+    >
+      {{ genre }}
+    </div>
+    <abn-carousel
+      :shows-list="sortedGroupedShows[genre]"
+      :data-testId="`tv-shows-${genre}-carousel`"
+    />
   </div>
 </template>
 

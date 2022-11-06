@@ -33,31 +33,62 @@ onMounted(() => {
 <template>
   <abn-loading :show="isLoading" />
 
-  <v-card class="tv-show-card" max-width="100%" v-if="show.id !== undefined">
-    <v-img class="tv-show-image" :src="show.image.original" cover>
+  <v-card
+    class="tv-show-card"
+    max-width="100%"
+    v-if="show.id !== undefined"
+    :data-testid="`tv-show-${show.id}`"
+  >
+    <v-img
+      cover
+      class="tv-show-image"
+      :src="show.image.original"
+      :data-testid="`tv-show-${show.id}-img`"
+      :alt="show.image.original"
+    >
       <template v-slot:placeholder>
         <div class="d-flex align-center justify-center fill-height">
-          <span>{{ show.name }}</span>
+          <span
+            :data-testid="`tv-show-${show.id}-img-placeholder`"
+            :alt="show.name"
+            >{{ show.name }}</span
+          >
         </div>
       </template>
     </v-img>
 
     <div class="tv-show-details">
-      <v-card-title>{{ show.name || NOT_AVAILABLE }}</v-card-title>
+      <v-card-title
+        :data-testid="`tv-show-${show.id}-name`"
+        :alt="show.name || NOT_AVAILABLE"
+        >{{ show.name || NOT_AVAILABLE }}</v-card-title
+      >
       <v-rating
         hover
         length="5"
         half-increments
         readonly
         v-model="show.rating.average"
+        :data-testid="`tv-show-${show.id}-rating`"
+        :alt="show.rating.average || NOT_AVAILABLE"
       ></v-rating>
-      <v-card-subtitle>
+      <v-card-subtitle
+        :data-testid="`tv-show-${show.id}-language`"
+        :alt="show.language || NOT_AVAILABLE"
+      >
         Language: {{ show.language || NOT_AVAILABLE }}
       </v-card-subtitle>
-      <v-card-subtitle>
+      <v-card-subtitle
+        :data-testid="`tv-show-${show.id}-genre`"
+        :alt="show.genres.length ? show.genres.join(', ') : NOT_AVAILABLE"
+      >
         Genre: {{ show.genres.length ? show.genres.join(", ") : NOT_AVAILABLE }}
       </v-card-subtitle>
-      <v-card-text class="flex-grow-1">
+      <v-card-text
+        class="flex-grow-1"
+        :data-testid="`tv-show-${show.id}-summary`"
+        :alt="show.summary || NOT_AVAILABLE"
+      >
         <div v-html="show.summary || NOT_AVAILABLE" />
       </v-card-text>
       <v-card-actions>
@@ -67,6 +98,8 @@ onMounted(() => {
           append-icon="mdi-open-in-new"
           :href="show.officialSite"
           target="_blank"
+          :data-testid="`tv-show-${show.id}-action`"
+          :alt="show.officialSite || NOT_AVAILABLE"
         >
           More
         </v-btn>
