@@ -6,10 +6,9 @@ defineProps<{
 
 <template>
   <v-overlay
-    :model-value="true"
+    :model-value="show"
     class="align-center justify-center"
-    v-if="show"
   >
-    <v-progress-circular indeterminate color="white" />
+    <v-progress-circular indeterminate color="white" alt="loading..." data-testid="progress-circular"/>
   </v-overlay>
 </template>

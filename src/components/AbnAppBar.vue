@@ -10,7 +10,7 @@ function navigate(path: RouteLocationRaw) {
 <template>
   <!-- TODO: Collapse into app drawer when width is less than x -->
   <v-app-bar app>
-    <v-app-bar-title @click="navigate('/')" class="nav-title" data-testid="app-bar-nav-title">
+    <v-app-bar-title @click="navigate('/')" class="nav-title" data-testid="app-bar-nav-title" alt="amroflix">
       AMROFLIX
     </v-app-bar-title>
 
@@ -21,6 +21,7 @@ function navigate(path: RouteLocationRaw) {
       :variant="$route.name === 'home' ? 'outlined' : 'text'"
       to="/home"
       data-testid="app-bar-nav-home"
+      alt="Home"
     >
       Home
     </v-btn>
@@ -30,6 +31,7 @@ function navigate(path: RouteLocationRaw) {
       :variant="$route.name === 'tv' ? 'outlined' : 'text'"
       to="/tv"
       data-testid="app-bar-nav-tv"
+      alt="TV"
     >
       TV
     </v-btn>
@@ -40,6 +42,7 @@ function navigate(path: RouteLocationRaw) {
       :variant="$route.name === 'movies' ? 'outlined' : 'text'"
       to="/movies"
       data-testid="app-bar-nav-movies"
+      alt="Movies"
     >
       Movies
       <v-tooltip activator="parent" location="bottom"> Coming soon </v-tooltip>
@@ -48,7 +51,7 @@ function navigate(path: RouteLocationRaw) {
     <v-spacer />
 
     <!-- TODO: show tooltip when button is disabled  -->
-    <v-btn icon to="/settings">
+    <v-btn icon to="/settings" alt="settings">
       <v-icon icon="mdi-account-circle" />
       <v-tooltip activator="parent" location="bottom"> Coming soon </v-tooltip>
     </v-btn>

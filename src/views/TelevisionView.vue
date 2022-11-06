@@ -87,7 +87,7 @@ onMounted(() => {
     class="television-shows"
   >
     <div class="text-h6 genre-title">{{ genre }}</div>
-    <abn-carousel :filtered-shows="sortedGroupedShows[genre]" />
+    <abn-carousel :shows-list="sortedGroupedShows[genre]" />
   </div>
 </template>
 

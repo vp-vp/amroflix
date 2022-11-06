@@ -3,7 +3,7 @@ import router from "@/router";
 import type { IShow } from "@/types";
 
 defineProps<{
-  filteredShows: Array<IShow>;
+  showsList: Array<IShow>;
 }>();
 </script>
 
@@ -12,14 +12,15 @@ defineProps<{
     <v-card
       width="125"
       @click="router.push({ name: 'show', params: { id: show.id } })"
-      v-for="show in filteredShows"
+      v-for="show in showsList"
       :key="show.id"
+      :data-testid="`carousel-card-${show.id}`"
     >
-      <v-card-subtitle>{{ show.name }}</v-card-subtitle>
-      <v-img :src="show.image.medium">
+      <v-card-subtitle :data-testid="`carousel-card-${show.id}-subtitle`" :alt="show.name">{{ show.name }}</v-card-subtitle>
+      <v-img :src="show.image.medium" :data-testid="`carousel-card-${show.id}-img`" :alt="show.image.medium">
         <template v-slot:placeholder>
           <div class="d-flex align-center justify-center fill-height">
-            <span>{{ show.name }}</span>
+            <span :data-testid="`carousel-card-${show.id}-img-placeholder`">{{ show.name }}</span>
           </div>
         </template>
       </v-img>

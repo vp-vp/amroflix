@@ -132,6 +132,4 @@ describe('ABN App Bar', () => {
         expect(mockPush).toBeCalledTimes(1)
         expect(mockPush).toBeCalledWith('/')
     })
-
-
 })
