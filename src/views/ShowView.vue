@@ -20,8 +20,12 @@ function getShowDetails() {
   fetch(`https://api.tvmaze.com/shows/${showId}`)
     .then((response) => response.json())
     .then((data) => {
-      show.value = data;
-      show.value.rating.average = Math.round(show.value.rating.average / 2);
+      show.value = data || {};
+      
+      if(Object.keys(show.value).length > 0){
+        show.value.rating.average = Math.round(show.value.rating.average / 2);
+      }
+
       isLoading.value = false;
     });
 }
@@ -106,6 +110,8 @@ onMounted(() => {
       </v-card-actions>
     </div>
   </v-card>
+
+  <!-- TODO: No data template -->
 </template>
 
 <style>

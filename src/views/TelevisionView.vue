@@ -101,6 +101,8 @@ onMounted(() => {
       :data-testId="`tv-shows-${genre}-carousel`"
     />
   </div>
+
+  <!-- TODO: No data template -->
 </template>
 
 <style>

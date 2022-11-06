@@ -139,4 +139,27 @@ describe("ABN Carousel", () => {
         .innerHTML
     ).toEqual(showsList[1].name);
   });
+
+  it("router push is called once", () => {
+    const showsList = getShowsList();
+    const wrapper = mount(components.VApp, {
+      slots: {
+        default: h(AbnCarousel, { showsList }),
+      },
+      global: {
+        plugins: [vuetify],
+      },
+    });
+
+    const navBarTitleEl = wrapper.get('[data-testid="carousel-card-1"]');
+    navBarTitleEl.trigger("click");
+
+    expect(mockPush).toBeCalledTimes(1);
+    expect(mockPush).toBeCalledWith({
+      "name": "show",
+      "params": {
+        "id": 1,
+      },
+    });
+  });
 });

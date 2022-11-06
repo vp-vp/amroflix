@@ -108,4 +108,24 @@ describe("Tv Show view", () => {
     expect(wrapper.find('[data-testid="tv-show-1-action"]').element.getAttribute('alt')).toEqual(mockShow1.officialSite)
     expect(wrapper.find('[data-testid="tv-show-1-action"]').element.getAttribute('disabled')).toBeNull()
   });
+
+  it("does not render show if response is not defined", async () => {
+    global.fetch = vi.fn().mockResolvedValue({json: () => {}})
+
+    const wrapper = mount(components.VApp, {
+      slots: {
+        default: h(ShowView),
+      },
+      global: {
+        plugins: [vuetify],
+      },
+    });
+
+    await flushPromises()
+    
+    const tvShowCard = wrapper.find('[data-testid="tv-show-2"]')
+    expect(tvShowCard.exists()).toBe(false)
+  });
+
+  // test loading indicator
 });
