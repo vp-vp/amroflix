@@ -10,7 +10,12 @@ function navigate(path: RouteLocationRaw) {
 <template>
   <!-- TODO: Collapse into app drawer when width is less than x -->
   <v-app-bar app>
-    <v-app-bar-title @click="navigate('/')" class="nav-title" data-testid="app-bar-nav-title" alt="amroflix">
+    <v-app-bar-title
+      @click="navigate('/')"
+      class="nav-title"
+      data-testid="app-bar-nav-title"
+      alt="amroflix"
+    >
       AMROFLIX
     </v-app-bar-title>
 
