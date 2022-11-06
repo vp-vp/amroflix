@@ -83,88 +83,186 @@ describe("Television view", () => {
     ).toContain(mockShow2.genres.join(", "));
   });
 
-  it("render list of tv shows which match search string", async () => {
-    global.fetch = vi
-      .fn()
-      .mockResolvedValue({ json: () => [mockShow1, mockShow2] });
+  describe("render list of tv shows which match search string", () => {
+    it("lower case", async () => {
+      global.fetch = vi
+        .fn()
+        .mockResolvedValue({ json: () => [mockShow1, mockShow2] });
 
-    const wrapper = mount(components.VApp, {
-      slots: {
-        default: h(TelevisionView),
-      },
-      global: {
-        plugins: [vuetify],
-      },
+      const wrapper = mount(components.VApp, {
+        slots: {
+          default: h(TelevisionView),
+        },
+        global: {
+          plugins: [vuetify],
+        },
+      });
+
+      await flushPromises();
+
+      expect(
+        wrapper.find('[data-testid="tv-shows-mock-genre-1"]').exists()
+      ).toEqual(true);
+      expect(
+        wrapper.find('[data-testid="tv-shows-mock-genre-2"]').exists()
+      ).toEqual(true);
+
+      await wrapper
+        .find('[data-testid="tv-shows-search"]')
+        .find("input")
+        .setValue("m");
+
+      expect(
+        wrapper.find('[data-testid="tv-shows-mock-genre-1"]').exists()
+      ).toEqual(true);
+      expect(
+        wrapper.find('[data-testid="tv-shows-mock-genre-2"]').exists()
+      ).toEqual(true);
     });
 
-    await flushPromises();
+    it("upper case", async () => {
+      global.fetch = vi
+        .fn()
+        .mockResolvedValue({ json: () => [mockShow1, mockShow2] });
 
-    expect(
-      wrapper.find('[data-testid="tv-shows-mock-genre-1"]').exists()
-    ).toEqual(true);
-    expect(
-      wrapper.find('[data-testid="tv-shows-mock-genre-2"]').exists()
-    ).toEqual(true);
+      const wrapper = mount(components.VApp, {
+        slots: {
+          default: h(TelevisionView),
+        },
+        global: {
+          plugins: [vuetify],
+        },
+      });
 
-    await wrapper
-      .find('[data-testid="tv-shows-search"]')
-      .find("input")
-      .setValue("m");
+      await flushPromises();
 
-    expect(
-      wrapper.find('[data-testid="tv-shows-mock-genre-1"]').exists()
-    ).toEqual(true);
-    expect(
-      wrapper.find('[data-testid="tv-shows-mock-genre-2"]').exists()
-    ).toEqual(false);
+      expect(
+        wrapper.find('[data-testid="tv-shows-mock-genre-1"]').exists()
+      ).toEqual(true);
+      expect(
+        wrapper.find('[data-testid="tv-shows-mock-genre-2"]').exists()
+      ).toEqual(true);
 
-    await wrapper
-      .find('[data-testid="tv-shows-search"]')
-      .find("input")
-      .setValue("G");
+      await wrapper
+        .find('[data-testid="tv-shows-search"]')
+        .find("input")
+        .setValue("M");
 
-    expect(
-      wrapper.find('[data-testid="tv-shows-mock-genre-1"]').exists()
-    ).toEqual(true);
-    expect(
-      wrapper.find('[data-testid="tv-shows-mock-genre-2"]').exists()
-    ).toEqual(false);
+      expect(
+        wrapper.find('[data-testid="tv-shows-mock-genre-1"]').exists()
+      ).toEqual(true);
+      expect(
+        wrapper.find('[data-testid="tv-shows-mock-genre-2"]').exists()
+      ).toEqual(true);
+    });
 
-    await wrapper
-      .find('[data-testid="tv-shows-search"]')
-      .find("input")
-      .setValue("1");
+    it("show first result", async () => {
+      global.fetch = vi
+        .fn()
+        .mockResolvedValue({ json: () => [mockShow1, mockShow2] });
 
-    expect(
-      wrapper.find('[data-testid="tv-shows-mock-genre-1"]').exists()
-    ).toEqual(true);
-    expect(
-      wrapper.find('[data-testid="tv-shows-mock-genre-2"]').exists()
-    ).toEqual(false);
+      const wrapper = mount(components.VApp, {
+        slots: {
+          default: h(TelevisionView),
+        },
+        global: {
+          plugins: [vuetify],
+        },
+      });
 
-    await wrapper
-      .find('[data-testid="tv-shows-search"]')
-      .find("input")
-      .setValue("2");
+      await flushPromises();
 
-    expect(
-      wrapper.find('[data-testid="tv-shows-mock-genre-1"]').exists()
-    ).toEqual(false);
-    expect(
-      wrapper.find('[data-testid="tv-shows-mock-genre-2"]').exists()
-    ).toEqual(true);
+      expect(
+        wrapper.find('[data-testid="tv-shows-mock-genre-1"]').exists()
+      ).toEqual(true);
+      expect(
+        wrapper.find('[data-testid="tv-shows-mock-genre-2"]').exists()
+      ).toEqual(true);
 
-    await wrapper
-      .find('[data-testid="tv-shows-search"]')
-      .find("input")
-      .setValue("not found");
+      await wrapper
+        .find('[data-testid="tv-shows-search"]')
+        .find("input")
+        .setValue("1");
 
-    expect(
-      wrapper.find('[data-testid="tv-shows-mock-genre-1"]').exists()
-    ).toEqual(false);
-    expect(
-      wrapper.find('[data-testid="tv-shows-mock-genre-2"]').exists()
-    ).toEqual(false);
+      expect(
+        wrapper.find('[data-testid="tv-shows-mock-genre-1"]').exists()
+      ).toEqual(true);
+      expect(
+        wrapper.find('[data-testid="tv-shows-mock-genre-2"]').exists()
+      ).toEqual(false);
+    });
+
+    it("show second result", async () => {
+      global.fetch = vi
+        .fn()
+        .mockResolvedValue({ json: () => [mockShow1, mockShow2] });
+
+      const wrapper = mount(components.VApp, {
+        slots: {
+          default: h(TelevisionView),
+        },
+        global: {
+          plugins: [vuetify],
+        },
+      });
+
+      await flushPromises();
+
+      expect(
+        wrapper.find('[data-testid="tv-shows-mock-genre-1"]').exists()
+      ).toEqual(true);
+      expect(
+        wrapper.find('[data-testid="tv-shows-mock-genre-2"]').exists()
+      ).toEqual(true);
+
+      await wrapper
+        .find('[data-testid="tv-shows-search"]')
+        .find("input")
+        .setValue("2");
+
+      expect(
+        wrapper.find('[data-testid="tv-shows-mock-genre-1"]').exists()
+      ).toEqual(false);
+      expect(
+        wrapper.find('[data-testid="tv-shows-mock-genre-2"]').exists()
+      ).toEqual(true);
+    });
+
+    it("show no results", async () => {
+      global.fetch = vi
+        .fn()
+        .mockResolvedValue({ json: () => [mockShow1, mockShow2] });
+
+      const wrapper = mount(components.VApp, {
+        slots: {
+          default: h(TelevisionView),
+        },
+        global: {
+          plugins: [vuetify],
+        },
+      });
+
+      await flushPromises();
+
+      expect(
+        wrapper.find('[data-testid="tv-shows-mock-genre-1"]').exists()
+      ).toEqual(true);
+      expect(
+        wrapper.find('[data-testid="tv-shows-mock-genre-2"]').exists()
+      ).toEqual(true);
+
+      await wrapper
+        .find('[data-testid="tv-shows-search"]')
+        .find("input")
+        .setValue("not found");
+
+      expect(
+        wrapper.find('[data-testid="tv-shows-mock-genre-1"]').exists()
+      ).toEqual(false);
+      expect(
+        wrapper.find('[data-testid="tv-shows-mock-genre-2"]').exists()
+      ).toEqual(false);
+    });
   });
 
   // TODO: test loading indicator

@@ -22,10 +22,14 @@ export default defineConfig({
   },
   test: {
     setupFiles: "../vuetify.config.js",
+    environment: "jsdom",
+    globals: true,
     deps: {
       inline: ["vuetify"],
     },
-    environment: "jsdom",
-    globals: true,
+    coverage: {
+      provider: "istanbul",
+      reporter: ["text", "json", "html"],
+    },
   },
 });
