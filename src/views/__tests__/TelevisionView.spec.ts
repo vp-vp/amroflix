@@ -109,6 +109,30 @@ describe("Television view", () => {
     await wrapper
       .find('[data-testid="tv-shows-search"]')
       .find("input")
+      .setValue("m");
+
+    expect(
+      wrapper.find('[data-testid="tv-shows-mock-genre-1"]').exists()
+    ).toEqual(true);
+    expect(
+      wrapper.find('[data-testid="tv-shows-mock-genre-2"]').exists()
+    ).toEqual(false);
+
+    await wrapper
+      .find('[data-testid="tv-shows-search"]')
+      .find("input")
+      .setValue("G");
+
+    expect(
+      wrapper.find('[data-testid="tv-shows-mock-genre-1"]').exists()
+    ).toEqual(true);
+    expect(
+      wrapper.find('[data-testid="tv-shows-mock-genre-2"]').exists()
+    ).toEqual(false);
+
+    await wrapper
+      .find('[data-testid="tv-shows-search"]')
+      .find("input")
       .setValue("1");
 
     expect(

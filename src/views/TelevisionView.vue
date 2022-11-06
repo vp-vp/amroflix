@@ -14,7 +14,7 @@ const showsList = ref([] as Array<IShow>);
 
 const filteredShows = computed(() =>
   showsList.value.filter(
-    (show) => show.name.toLowerCase().indexOf(searchQuery.value) > -1
+    (show) => show.name.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1
   )
 );
 const groupedShows = computed(() => {
@@ -71,8 +71,8 @@ onMounted(() => {
 <template>
   <abn-loading :show="isLoading" />
 
-  <div class="d-flex align-center">
-    <div class="flex-grow-1 text-h4" alt="TV shows">TV Shows</div>
+  <div class="tv-shows-header" >
+    <div class="flex-grow-1 text-h4 tv-shows-header-title" alt="TV shows">TV Shows</div>
     <v-text-field
       placeholder="Search by show name"
       append-inner-icon="mdi-magnify"
@@ -80,6 +80,7 @@ onMounted(() => {
       v-model="searchQuery"
       alt="Search by show name"
       data-testid="tv-shows-search"
+      class="tv-shows-header-search"
     />
   </div>
 
@@ -112,5 +113,35 @@ onMounted(() => {
 
 .genre-title {
   padding: 16px 0;
+}
+
+.tv-shows-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: 'title search';
+  grid-template-rows: 1;
+
+  position: sticky;
+  top: 64px;
+  z-index: 1;
+  background-color: var(--vt-c-white); 
+}
+
+.tv-shows-header-title {
+  grid-area: title;
+}
+
+.tv-shows-header-search {
+  grid-area: search;
+}
+
+@media (max-width: 960px){
+  .tv-shows-header {
+    grid-template-columns: 1fr;
+    grid-template-rows: 2;
+    grid-template-areas: 
+    'title'
+    'search';
+  }
 }
 </style>
