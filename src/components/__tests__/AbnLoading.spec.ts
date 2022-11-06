@@ -22,6 +22,8 @@ describe("ABN Loading", () => {
     });
 
     await flushPromises();
+
+    expect(wrapper.exists()).toEqual(true);
     /* const progressEl = wrapper.get('[data-testid="progress-circular"]')
         expect(progressEl.element.getAttribute('alt')).toEqual('loading...') */
   });

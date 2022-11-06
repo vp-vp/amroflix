@@ -21,8 +21,8 @@ function getShowDetails() {
     .then((response) => response.json())
     .then((data) => {
       show.value = data || {};
-      
-      if(Object.keys(show.value).length > 0){
+
+      if (Object.keys(show.value).length > 0) {
         show.value.rating.average = Math.round(show.value.rating.average / 2);
       }
 

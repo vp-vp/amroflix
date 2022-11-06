@@ -156,9 +156,9 @@ describe("ABN Carousel", () => {
 
     expect(mockPush).toBeCalledTimes(1);
     expect(mockPush).toBeCalledWith({
-      "name": "show",
-      "params": {
-        "id": 1,
+      name: "show",
+      params: {
+        id: 1,
       },
     });
   });
