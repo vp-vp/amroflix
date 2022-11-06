@@ -10,7 +10,7 @@ function navigate(path: RouteLocationRaw) {
 <template>
   <!-- TODO: Collapse into app drawer when width is less than x -->
   <v-app-bar app>
-    <v-app-bar-title @click="navigate('/')" class="nav-title">
+    <v-app-bar-title @click="navigate('/')" class="nav-title" data-testid="app-bar-nav-title">
       AMROFLIX
     </v-app-bar-title>
 
@@ -20,6 +20,7 @@ function navigate(path: RouteLocationRaw) {
       prepend-icon="mdi-home"
       :variant="$route.name === 'home' ? 'outlined' : 'text'"
       to="/home"
+      data-testid="app-bar-nav-home"
     >
       Home
     </v-btn>
@@ -28,6 +29,7 @@ function navigate(path: RouteLocationRaw) {
       prepend-icon="mdi-television-classic"
       :variant="$route.name === 'tv' ? 'outlined' : 'text'"
       to="/tv"
+      data-testid="app-bar-nav-tv"
     >
       TV
     </v-btn>
@@ -37,6 +39,7 @@ function navigate(path: RouteLocationRaw) {
       prepend-icon="mdi-movie"
       :variant="$route.name === 'movies' ? 'outlined' : 'text'"
       to="/movies"
+      data-testid="app-bar-nav-movies"
     >
       Movies
       <v-tooltip activator="parent" location="bottom"> Coming soon </v-tooltip>
