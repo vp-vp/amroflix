@@ -1,17 +1,25 @@
 <script setup lang="ts">
-import type { IShow } from "../types";
 import { ref, onMounted } from "vue";
 import { computed } from "vue";
+
+import type { IShow } from "../types";
 
 import AbnLoading from "@/components/AbnLoading.vue";
 import AbnCarousel from "@/components/AbnCarousel.vue";
 
-const NOT_AVAILABLE = "N/A";
+const NOT_AVAILABLE = "N/A"; // TODO: extract into constants
 
 const isLoading = ref(false);
 const searchQuery = ref("");
 const showsList = ref([] as Array<IShow>);
 
+/**
+ * Shows are 
+ * 1. filtered by names matching searchquery
+ * 2. grouped based on genre
+ * 3. sorted based on rating (desc)
+ * TODO: Debounce input
+ */
 const filteredShows = computed(() =>
   showsList.value.filter(
     (show) =>
@@ -48,6 +56,9 @@ const sortedGroupedShows = computed(() => {
   return sortedGroupedShowList;
 });
 
+/** 
+ * Default sort function for tv shows
+ */
 function sortByRatingDesc(show1: IShow, show2: IShow) {
   return -1 * (show1.rating.average - show2.rating.average);
 }
@@ -61,6 +72,9 @@ function getTvShows() {
     .then((data) => {
       showsList.value = data;
       isLoading.value = false;
+    })
+    .catch(err => {
+      // TODO: error handling
     });
 }
 
@@ -72,41 +86,27 @@ onMounted(() => {
 <template>
   <abn-loading :show="isLoading" />
 
-  <div class="tv-shows-header">
-    <div class="flex-grow-1 text-h4 tv-shows-header-title" alt="TV shows">
-      TV Shows
+  <div v-show="!isLoading">
+    <!-- Title with search box -->
+    <div class="tv-shows-header">
+      <div class="flex-grow-1 text-h4 tv-shows-header-title" alt="TV shows">
+        TV Shows
+      </div>
+      <v-text-field placeholder="Search by show name" append-inner-icon="mdi-magnify" variant="underlined"
+        v-model="searchQuery" alt="Search by show name" data-testid="tv-shows-search" class="tv-shows-header-search" />
     </div>
-    <v-text-field
-      placeholder="Search by show name"
-      append-inner-icon="mdi-magnify"
-      variant="underlined"
-      v-model="searchQuery"
-      alt="Search by show name"
-      data-testid="tv-shows-search"
-      class="tv-shows-header-search"
-    />
-  </div>
 
-  <div
-    v-for="genre in Object.keys(sortedGroupedShows)"
-    :key="genre"
-    class="television-shows"
-    :data-testid="`tv-shows-${genre}`"
-  >
-    <div
-      class="text-h6 genre-title"
-      :data-testid="`tv-shows-${genre}-title`"
-      :alt="genre"
-    >
-      {{ genre }}
+    <!-- Carousal per genre -->
+    <div v-for="genre in Object.keys(sortedGroupedShows)" :key="genre" class="television-shows"
+      :data-testid="`tv-shows-${genre}`">
+      <div class="text-h6 genre-title" :data-testid="`tv-shows-${genre}-title`" :alt="genre">
+        {{ genre }}
+      </div>
+      <abn-carousel :shows-list="sortedGroupedShows[genre]" :data-testId="`tv-shows-${genre}-carousel`" />
     </div>
-    <abn-carousel
-      :shows-list="sortedGroupedShows[genre]"
-      :data-testId="`tv-shows-${genre}-carousel`"
-    />
-  </div>
 
-  <!-- TODO: No data template -->
+    <!-- TODO: No data template -->
+  </div>
 </template>
 
 <style>

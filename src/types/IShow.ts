@@ -4,10 +4,10 @@ export interface IShow {
   summary: string;
   language: string;
   officialSite: string;
+  genres: Array<string>;
   rating: {
     average: number;
   };
-  genres: Array<string>;
   image: {
     medium: string;
     original: string;

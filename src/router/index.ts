@@ -20,22 +20,22 @@ const router = createRouter({
     {
       path: "/show/:id",
       name: "show",
-      component: () => import("../views/ShowView.vue"),
+      component: () => import("../views/ShowView.vue"), // lazy load
     },
     {
       path: "/movies",
       name: "movies",
-      component: () => import("../views/ComingSoonView.vue"),
+      component: () => import("../views/ComingSoonView.vue"), // lazy load
     },
     {
       path: "/settings",
       name: "settings",
-      component: () => import("../views/ComingSoonView.vue"),
+      component: () => import("../views/ComingSoonView.vue"), // lazy load
     },
     {
       path: "/:pathMatch(.*)*",
       name: "NotFound",
-      component: () => import("../views/NotFoundView.vue"),
+      component: () => import("../views/NotFoundView.vue"), // lazy load
     },
   ],
 });

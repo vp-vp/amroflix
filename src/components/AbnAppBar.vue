@@ -10,45 +10,25 @@ function navigate(path: RouteLocationRaw) {
 <template>
   <!-- TODO: Collapse into app drawer when width is less than x -->
   <v-app-bar app>
-    <v-app-bar-title
-      @click="navigate('/')"
-      class="nav-title"
-      data-testid="app-bar-nav-title"
-      alt="amroflix"
-    >
+    <v-app-bar-title @click="navigate('/')" class="nav-title" data-testid="app-bar-nav-title" alt="amroflix">
       AMROFLIX
     </v-app-bar-title>
 
     <v-spacer />
 
-    <v-btn
-      prepend-icon="mdi-home"
-      :variant="$route.name === 'home' ? 'outlined' : 'text'"
-      to="/home"
-      data-testid="app-bar-nav-home"
-      alt="Home"
-    >
+    <v-btn prepend-icon="mdi-home" :variant="$route.name === 'home' ? 'outlined' : 'text'" to="/home"
+      data-testid="app-bar-nav-home" alt="Home">
       Home
     </v-btn>
 
-    <v-btn
-      prepend-icon="mdi-television-classic"
-      :variant="$route.name === 'tv' ? 'outlined' : 'text'"
-      to="/tv"
-      data-testid="app-bar-nav-tv"
-      alt="TV"
-    >
+    <v-btn prepend-icon="mdi-television-classic" :variant="$route.name === 'tv' ? 'outlined' : 'text'" to="/tv"
+      data-testid="app-bar-nav-tv" alt="TV">
       TV
     </v-btn>
 
     <!-- TODO: show tooltip when button is disabled  -->
-    <v-btn
-      prepend-icon="mdi-movie"
-      :variant="$route.name === 'movies' ? 'outlined' : 'text'"
-      to="/movies"
-      data-testid="app-bar-nav-movies"
-      alt="Movies"
-    >
+    <v-btn prepend-icon="mdi-movie" :variant="$route.name === 'movies' ? 'outlined' : 'text'" to="/movies"
+      data-testid="app-bar-nav-movies" alt="Movies">
       Movies
       <v-tooltip activator="parent" location="bottom"> Coming soon </v-tooltip>
     </v-btn>

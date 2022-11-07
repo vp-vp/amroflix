@@ -15,7 +15,7 @@ import "./assets/main.css";
 
 const app = createApp(App);
 
-// TODO: extract into plugins
+// TODO: extract into plugins/
 const vuetify = createVuetify({
   components,
   directives,
