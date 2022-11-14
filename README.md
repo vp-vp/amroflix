@@ -62,6 +62,13 @@ Lint with [ESLint](https://eslint.org/)
 npm run lint
 ```
 
+Start (production) app using [serve](https://www.npmjs.com/package/serve)
+
+```sh
+npm run build
+npm run start
+```
+
 ## Features
 
 - [x] Vue 3
@@ -76,7 +83,8 @@ npm run lint
 
 ### Product fetaures
 
-- [ ] Search by people as well  
+- [ ] Search by [show](https://www.tvmaze.com/api#show-search) & [people](https://www.tvmaze.com/api#people-search) 
+- [ ] Filter shows by rating 
 - [ ] Similar shows  
 - [ ] i18n  
 - [ ] AuthN  

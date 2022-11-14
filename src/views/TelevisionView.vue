@@ -14,49 +14,44 @@ const searchQuery = ref("");
 const showsList = ref([] as Array<IShow>);
 
 /**
- * Shows are 
+ * Shows are
  * 1. filtered by names matching searchquery
  * 2. grouped based on genre
  * 3. sorted based on rating (desc)
+ *
  * TODO: Debounce input
  */
-const filteredShows = computed(() =>
-  showsList.value.filter(
+const sortedGroupedShows = computed(() => {
+  const filteredShowsList = showsList.value.filter(
     (show) =>
       show.name.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1
-  )
-);
-const groupedShows = computed(() => {
-  const groupedShowList: Record<string, Array<IShow>> = {};
+  );
 
-  filteredShows.value.forEach((show) => {
+  const groupedShowsList: Record<string, Array<IShow>> = {};
+  filteredShowsList.forEach((show) => {
     // TODO: The grouping can be improved to be more robust
     const genres = show.genres.length ? show.genres : [NOT_AVAILABLE];
 
     genres.forEach((genre) => {
-      if (groupedShowList[genre] === undefined) {
-        groupedShowList[genre] = [];
+      if (groupedShowsList[genre] === undefined) {
+        groupedShowsList[genre] = [];
       }
-      groupedShowList[genre].push(show);
+      groupedShowsList[genre].push(show);
     });
   });
 
-  return groupedShowList;
-});
-const sortedGroupedShows = computed(() => {
-  const genres = Object.keys(groupedShows.value);
-  const sortedGroupedShowList: Record<string, Array<IShow>> = {};
-
+  const genres = Object.keys(groupedShowsList);
+  const sortedGroupedShowsList: Record<string, Array<IShow>> = {};
   genres.forEach((genre) => {
-    const showsList = groupedShows.value[genre];
+    const showsList = groupedShowsList[genre];
     showsList.sort(sortByRatingDesc);
-    sortedGroupedShowList[genre] = showsList;
+    sortedGroupedShowsList[genre] = showsList;
   });
 
-  return sortedGroupedShowList;
+  return sortedGroupedShowsList;
 });
 
-/** 
+/**
  * Default sort function for tv shows
  */
 function sortByRatingDesc(show1: IShow, show2: IShow) {
@@ -73,7 +68,7 @@ function getTvShows() {
       showsList.value = data;
       isLoading.value = false;
     })
-    .catch(err => {
+    .catch((err) => {
       // TODO: error handling
     });
 }

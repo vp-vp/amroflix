@@ -29,7 +29,7 @@ function getShowDetails() {
 
       isLoading.value = false;
     })
-    .catch(err => {
+    .catch((err) => {
       // TODO: error handling
     });
 }
